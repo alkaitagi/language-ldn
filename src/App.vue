@@ -12,8 +12,8 @@ import { computed, ref } from "vue";
 
 function zip<T>(a: T[], b: T[]) {
   return Array.from(Array(Math.max(b.length, a.length)), (_, i) => [
-    a[i],
-    b[i],
+    a[i] ?? "",
+    b[i] ?? "",
   ]);
 }
 
@@ -21,6 +21,7 @@ const inputA = ref("");
 const inputB = ref("");
 const output = computed(() => {
   const pairs = zip(inputA.value.split("\n"), inputB.value.split("\n"));
+  console.log("pairs", pairs);
   return pairs.reduce((sum, [a, b]) => sum + leven(a, b), 0) / pairs.length;
 });
 </script>
