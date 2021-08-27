@@ -22,7 +22,13 @@ const inputB = ref("");
 const output = computed(() => {
   const pairs = zip(inputA.value.split("\n"), inputB.value.split("\n"));
   console.log("pairs", pairs);
-  return pairs.reduce((sum, [a, b]) => sum + leven(a, b), 0) / pairs.length;
+  return (
+    pairs.reduce((sum, [a, b]) => {
+      const length = Math.max(a.length, b.length);
+      sum += leven(a, b) / length;
+      return sum;
+    }, 0) / pairs.length
+  );
 });
 </script>
 
